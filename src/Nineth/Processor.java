@@ -33,6 +33,7 @@ public class Processor {
         while(true) {
             synchronized (lock) {
                 while(list.size() == 0) {
+                    System.out.println("Empty list in consumer");
                     lock.wait();
                 }
                 System.out.println("List size is: "+ list.size());

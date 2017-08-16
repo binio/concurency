@@ -29,8 +29,8 @@ public class App {
             }
         });
 
-        t1.start();
         t2.start();
+        t1.start();
         try {
             t1.join();
             t2.join();
