@@ -17,7 +17,7 @@ public class Runner {
     Lock lock1 = new ReentrantLock();
     Lock lock2 = new ReentrantLock();
 
-    public void acquireLocks( Lock firstLock, Lock secondLock) {
+    public void acquireLocks( Lock firstLock, Lock secondLock) throws InterruptedException{
             while(true) {
                 //acquire locks
                 boolean gotFirstLock = false;
