@@ -28,6 +28,15 @@ public class Runner {
                     gotSecondLock = secondLock.tryLock();
                 }
                 finally {
+                    if(gotFirstLock && gotSecondLock) {
+                        return;
+                    }
+                    if(gotFirstLock) {
+                        firstLock.unlock();
+                    }
+                    if(gotSecondLock){
+                        secondLock.unlock();
+                    }
 
                 }
                 //lock not aquired
@@ -39,8 +48,7 @@ public class Runner {
     public void firstThread() throws InterruptedException {
         Random random = new Random();
         for(int i = 0; i<10000; i++){
-            lock1.lock();
-            lock2.lock();
+            acquireLocks(lock1,lock2);
             try {
                 Account.transfer(a1, a2, random.nextInt(100));
             }finally {
@@ -54,8 +62,7 @@ public class Runner {
     public void secondThread() throws InterruptedException{
         Random random = new Random();
         for(int i = 0; i<10000; i++){
-            lock1.lock();
-            lock2.lock();
+            acquireLocks(lock1,lock2);
             try {
             Account.transfer(a2, a1, random.nextInt(100));
             }finally {
